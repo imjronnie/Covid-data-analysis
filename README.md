@@ -8,7 +8,7 @@
 
 I first created two tables with the dataset to analyze deaths and vaccinations separately. I deleted everything that had to do with vaccines and called it CovidDeaths and then deleted everything that had to do with deaths and called it CovidVaccinations. I then imported it into BigQuery.
 
-<be>
+<br>
 
 The first query I pulled was the following:
 
