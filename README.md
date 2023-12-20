@@ -29,3 +29,14 @@ FROM `Covid.CovidDeaths`
 WHERE location = "Bangladesh"
 ORDER BY 1,2;
 ```
+
+<br>
+
+I then began looking at the total cases vs the population to see what percentage of the population got covid.
+
+```sql
+SELECT location, date, population, total_cases, (total_cases/population)*100 AS perecentage_infected
+FROM `Covid.CovidDeaths` 
+WHERE location = "Bangladesh"
+ORDER BY 1,2;
+```
