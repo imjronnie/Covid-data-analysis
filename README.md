@@ -40,3 +40,48 @@ FROM `Covid.CovidDeaths`
 WHERE location = "Bangladesh"
 ORDER BY 1,2;
 ```
+<br>
+
+I want to know what countries have the highest infection rates with the following query:
+
+```sql
+SELECT location, population, MAX(total_cases) AS highest_infection_count, MAX((total_cases/population))*100 AS percentage_infected
+FROM `Covid.CovidDeaths` 
+GROUP BY location, population
+ORDER BY 4 DESC;
+```
+
+<br>
+
+One thing That I noticed was the there were some areas of data that was showing whole continents instead of countries. This happended becasue the continent location was labled as Null and the "location" or country was labeled with the corresponding continent.
+
+```sql
+SELECT location, population, MAX(total_cases) AS highest_infection_count, MAX((total_cases / population) * 100) AS percentage_infected
+FROM `Covid.CovidDeaths`
+WHERE continent IS NULL
+GROUP BY location, population
+ORDER BY 4 DESC;
+```
+<br>
+
+In order to fix this and get the right data we need to search for data where the continent is not null. The following code applies to the prior SQL query.
+
+```sql
+SELECT location, population, MAX(total_cases) AS highest_infection_count, MAX((total_cases / population) * 100) AS percentage_infected
+FROM `Covid.CovidDeaths`
+WHERE continent IS NOT NULL
+GROUP BY location, population
+ORDER BY 4 DESC;
+```
+
+<br>
+
+Now I am going to do the same for deaths. The following query will show us the percentage of deaths and who had the highest deaths in comparison to their population.
+
+```sql
+SELECT location, population, MAX(total_deaths) AS total_death_count, MAX(total_deaths)/population*100 AS percentage_deaths
+FROM `Covid.CovidDeaths`
+WHERE continent IS NOT NULL
+GROUP BY location, population
+ORDER BY percentage_deaths DESC;
+```
