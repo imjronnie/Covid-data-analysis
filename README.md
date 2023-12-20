@@ -17,3 +17,13 @@ SELECT location, date, total_cases, new_cases, total_deaths, population
 FROM `Covid.CovidDeaths`
 WHERE location = 'Bangladesh' 
 ORDER BY 1,2;
+
+<br>
+
+The first calculation I wanted was total deaths divided by total cases to get the case fatality rate. This shows the likelihood of dying if you contract COVID-19 in your country.
+
+```sql
+SELECT location, date, total_cases, total_deaths, (total_deaths/total_cases)*100 AS case_fatality_rate
+FROM `Covid.CovidDeaths` 
+WHERE location = "Bangladesh"
+ORDER BY 1,2;
