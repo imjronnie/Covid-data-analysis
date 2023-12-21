@@ -32,7 +32,7 @@ ORDER BY 1,2;
 
 <br>
 
-I then began looking at the total cases vs the population to see what percentage of the population got covid.
+I then began looking at the total cases vs the population to see what percentage of the population got COVID-19.
 
 ```sql
 SELECT location, date, population, total_cases, (total_cases/population)*100 AS perecentage_infected
@@ -53,30 +53,28 @@ ORDER BY 4 DESC;
 
 <br>
 
-One thing That I noticed was the there were some areas of data that was showing whole continents instead of countries. This happended becasue the continent location was labled as Null and the "location" or country was labeled with the corresponding continent.
+Now I am going to write this SQL query to calculate the maximum count of total deaths for each location.
 
 ```sql
-SELECT location, population, MAX(total_cases) AS highest_infection_count, MAX((total_cases / population) * 100) AS percentage_infected
+SELECT location, MAX(total_deaths) AS total_death_count
 FROM `Covid.CovidDeaths`
-WHERE continent IS NULL
-GROUP BY location, population
-ORDER BY 4 DESC;
+GROUP BY location
+ORDER BY 2 DESC
 ```
 <br>
 
-In order to fix this and get the right data we need to search for data where the continent is not null. The following code applies to the prior SQL query.
+One thing I noticed was that some areas of data were showing whole continents instead of countries. This happened because the continent location was labeled as Null and the "location" or country was labeled with the corresponding continent. To fix this we need to search for data where the continent is not null. The following code applies to the prior SQL query.
 
 ```sql
-SELECT location, population, MAX(total_cases) AS highest_infection_count, MAX((total_cases / population) * 100) AS percentage_infected
+SELECT location, MAX(total_deaths) AS total_death_count
 FROM `Covid.CovidDeaths`
 WHERE continent IS NOT NULL
-GROUP BY location, population
-ORDER BY 4 DESC;
+GROUP BY location
+ORDER BY 2 DESC
 ```
-
 <br>
 
-Now I am going to do the same for deaths. The following query will show us the percentage of deaths and who had the highest deaths in comparison to their population.
+I want to know what countries have the highest death rates. The following query will show us the percentage of deaths and who had the highest deaths in comparison to their population. As I know from the previous query some continent was labeled as NULL and the "location" or country was labeled with the corresponding continent, I will exclude those values. 
 
 ```sql
 SELECT location, population, MAX(total_deaths) AS total_death_count, MAX(total_deaths)/population*100 AS percentage_deaths
@@ -85,3 +83,5 @@ WHERE continent IS NOT NULL
 GROUP BY location, population
 ORDER BY percentage_deaths DESC;
 ```
+<br>
+
